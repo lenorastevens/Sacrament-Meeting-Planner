@@ -14,43 +14,44 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Meeting[0].Date)
+                @Html.DisplayNameFor(model => model.Meetings[0].Date)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Meeting[0].Presiding)
+                @Html.DisplayNameFor(model => model.Meetings[0].Presiding)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Meeting[0].Conducting)
+                @Html.DisplayNameFor(model => model.Meetings[0].Conducting)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Meeting[0].OpeningHymn)
+                @Html.DisplayNameFor(model => model.Meetings[0].OpeningHymn)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Meeting[0].Invocation)
+                @Html.DisplayNameFor(model => model.Meetings[0].Invocation)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Meeting[0].SacramentHymn)
+                @Html.DisplayNameFor(model => model.Meetings[0].SacramentHymn)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Meeting[0].IntermediateHymn)
+                @Html.DisplayNameFor(model => model.Meetings[0].IntermediateHymn)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Meeting[0].ClosingHymn)
+                @Html.DisplayNameFor(model => model.Meetings[0].ClosingHymn)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Meeting[0].Benediction)
+                @Html.DisplayNameFor(model => model.Meetings[0].Benediction)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Meeting[0].SpeakerSubject)
+                @Html.DisplayNameFor(model => model.Meetings[0].SpeakerSubject)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Meeting[0].Speakers)
+                @Html.DisplayNameFor(model => model.Meetings[0].Speakers)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Meeting) {
+        @foreach (var item in Model.Meetings)
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Date)
@@ -82,9 +83,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.SpeakerSubject)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Speakers)
-            </td>
+
+                <td>
+                    @foreach (var speaker in item.Speakers)
+                    {
+                        <span>@speaker.Name</span>
+                    }
+                </td>
+
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |

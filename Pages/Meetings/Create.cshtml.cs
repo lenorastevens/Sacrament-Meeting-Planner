@@ -12,12 +12,13 @@ namespace Sacrament_Meeting_Planner.Pages.Meetings
 {
     public class CreateModel : PageModel
     {
-        private readonly Sacrament_Meeting_Planner.Data.Sacrament_Meeting_PlannerContext _context;
+        private readonly Sacrament_Meeting_PlannerContext _context;
 
-        public CreateModel(Sacrament_Meeting_Planner.Data.Sacrament_Meeting_PlannerContext context)
+        public CreateModel(Sacrament_Meeting_PlannerContext context)
         {
             _context = context;
         }
+
 
         public IActionResult OnGet()
         {
@@ -35,7 +36,7 @@ namespace Sacrament_Meeting_Planner.Pages.Meetings
                 return Page();
             }
 
-            _context.Meeting.Add(Meeting);
+            _context.Meetings.Add(Meeting);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

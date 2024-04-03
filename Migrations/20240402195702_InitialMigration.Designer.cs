@@ -11,8 +11,8 @@ using Sacrament_Meeting_Planner.Data;
 namespace Sacrament_Meeting_Planner.Migrations
 {
     [DbContext(typeof(Sacrament_Meeting_PlannerContext))]
-    [Migration("20240330202918_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240402195702_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,8 +26,8 @@ namespace Sacrament_Meeting_Planner.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Benediction")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Benediction")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("ClosingHymn")
                         .HasColumnType("INTEGER");
@@ -56,13 +56,45 @@ namespace Sacrament_Meeting_Planner.Migrations
                     b.Property<string>("SpeakerSubject")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Speakers")
+                    b.HasKey("Id");
+
+                    b.ToTable("Meetings");
+                });
+
+            modelBuilder.Entity("Sacrament_Meeting_Planner.Models.Speaker", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("MeetingId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Meeting");
+                    b.HasIndex("MeetingId");
+
+                    b.ToTable("Speakers");
+                });
+
+            modelBuilder.Entity("Sacrament_Meeting_Planner.Models.Speaker", b =>
+                {
+                    b.HasOne("Sacrament_Meeting_Planner.Models.Meeting", "Meeting")
+                        .WithMany("Speakers")
+                        .HasForeignKey("MeetingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Meeting");
+                });
+
+            modelBuilder.Entity("Sacrament_Meeting_Planner.Models.Meeting", b =>
+                {
+                    b.Navigation("Speakers");
                 });
 #pragma warning restore 612, 618
         }

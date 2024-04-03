@@ -63,11 +63,12 @@
                 <input asp-for="Meeting.SpeakerSubject" class="form-control" />
                 <span asp-validation-for="Meeting.SpeakerSubject" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="Meeting.Speakers" class="control-label"></label>
-                <input asp-for="Meeting.Speakers" class="form-control" />
-                <span asp-validation-for="Meeting.Speakers" class="text-danger"></span>
+                <label for="speakers">Speakers:</label>
+                <input type="text" id="speakers" name="speakers" class="form-control" placeholder="Enter speaker names separated by commas" />
             </div>
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -80,5 +81,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Sacrament_Meeting_Planner.Data;
 using Sacrament_Meeting_Planner.Models;
@@ -13,15 +12,24 @@ namespace Sacrament_Meeting_Planner.Pages.Meetings
 {
     public class EditModel : PageModel
     {
-        private readonly Sacrament_Meeting_Planner.Data.Sacrament_Meeting_PlannerContext _context;
+        private readonly Sacrament_Meeting_PlannerContext _context;
 
-        public EditModel(Sacrament_Meeting_Planner.Data.Sacrament_Meeting_PlannerContext context)
+        public EditModel(Sacrament_Meeting_PlannerContext context)
         {
             _context = context;
         }
 
         [BindProperty]
-        public Meeting Meeting { get; set; } = default!;
+        public Meeting Meeting
+        {
+            get; set;
+        }
+
+        [BindProperty]
+        public string NewSpeaker
+        {
+            get; set;
+        }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,17 +38,18 @@ namespace Sacrament_Meeting_Planner.Pages.Meetings
                 return NotFound();
             }
 
-            var meeting =  await _context.Meeting.FirstOrDefaultAsync(m => m.Id == id);
-            if (meeting == null)
+            Meeting = await _context.Meetings
+                .Include(m => m.Speakers)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (Meeting == null)
             {
                 return NotFound();
             }
-            Meeting = meeting;
+
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -50,28 +59,47 @@ namespace Sacrament_Meeting_Planner.Pages.Meetings
 
             _context.Attach(Meeting).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!MeetingExists(Meeting.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }
 
-        private bool MeetingExists(int id)
+        public async Task<IActionResult> OnPostAddSpeakerAsync()
         {
-            return _context.Meeting.Any(e => e.Id == id);
+            if (Meeting.Speakers == null)
+            {
+                Meeting.Speakers = new List<Speaker>();
+            }
+
+            var newSpeaker = new Speaker
+            {
+                Name = NewSpeaker
+            };
+
+            Meeting.Speakers.Add(newSpeaker);
+            NewSpeaker = "";
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage();
+        }
+
+        public async Task<IActionResult> OnPostRemoveSpeakerAsync(int id)
+        {
+            var speakerToRemove = await _context.Speakers.FindAsync(id);
+
+            if (speakerToRemove != null)
+            {
+                _context.Speakers.Remove(speakerToRemove);
+                await _context.SaveChangesAsync();
+            }
+
+            // Refresh Meeting object to reflect changes
+            Meeting = await _context.Meetings
+                .Include(m => m.Speakers)
+                .FirstOrDefaultAsync(m => m.Id == Meeting.Id);
+
+            return Page();
         }
     }
 }

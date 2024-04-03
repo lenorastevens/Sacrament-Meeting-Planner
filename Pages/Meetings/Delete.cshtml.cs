@@ -12,9 +12,9 @@ namespace Sacrament_Meeting_Planner.Pages.Meetings
 {
     public class DeleteModel : PageModel
     {
-        private readonly Sacrament_Meeting_Planner.Data.Sacrament_Meeting_PlannerContext _context;
+        private readonly Sacrament_Meeting_PlannerContext _context;
 
-        public DeleteModel(Sacrament_Meeting_Planner.Data.Sacrament_Meeting_PlannerContext context)
+        public DeleteModel(Sacrament_Meeting_PlannerContext context)
         {
             _context = context;
         }
@@ -29,16 +29,15 @@ namespace Sacrament_Meeting_Planner.Pages.Meetings
                 return NotFound();
             }
 
-            var meeting = await _context.Meeting.FirstOrDefaultAsync(m => m.Id == id);
+            Meeting = await _context.Meetings
+                .Include(m => m.Speakers) // Include speakers
+                .FirstOrDefaultAsync(m => m.Id == id);
 
-            if (meeting == null)
+            if (Meeting == null)
             {
                 return NotFound();
             }
-            else
-            {
-                Meeting = meeting;
-            }
+
             return Page();
         }
 
@@ -49,11 +48,10 @@ namespace Sacrament_Meeting_Planner.Pages.Meetings
                 return NotFound();
             }
 
-            var meeting = await _context.Meeting.FindAsync(id);
+            var meeting = await _context.Meetings.FindAsync(id);
             if (meeting != null)
             {
-                Meeting = meeting;
-                _context.Meeting.Remove(Meeting);
+                _context.Meetings.Remove(meeting);
                 await _context.SaveChangesAsync();
             }
 
