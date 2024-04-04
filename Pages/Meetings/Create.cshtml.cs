@@ -29,17 +29,34 @@ namespace Sacrament_Meeting_Planner.Pages.Meetings
         public Meeting Meeting { get; set; } = default!;
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync([Bind("Date,Presiding,Conducting,OpeningHymn,Invocation,SacramentHymn,IntermediateHymn,ClosingHymn,Benediction,SpeakerSubject")] Meeting meeting, string speakers)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Meetings.Add(Meeting);
+            // Add the meeting to the database
+            _context.Meetings.Add(meeting);
+            await _context.SaveChangesAsync();
+
+            // Add speakers
+            var speakersList = new List<Speaker>();
+            if (!string.IsNullOrEmpty(speakers))
+            {
+                var speakerNames = speakers.Split(',').Select(s => s.Trim());
+                foreach (var name in speakerNames)
+                {
+                    speakersList.Add(new Speaker { Name = name, MeetingId = meeting.Id });
+                }
+            }
+
+            // Add speakers to the database
+            _context.Speakers.AddRange(speakersList);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }
+
     }
 }
