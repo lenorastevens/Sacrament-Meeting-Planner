@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Sacrament_Meeting_Planner.Models
 {
@@ -29,7 +31,7 @@ namespace Sacrament_Meeting_Planner.Models
         public string? OpeningHymn
         {
             get; set;
-        } 
+        }
 
         public string? Invocation
         {
@@ -39,17 +41,17 @@ namespace Sacrament_Meeting_Planner.Models
         public string? SacramentHymn
         {
             get; set;
-        } 
+        }
 
         public string? IntermediateHymn
         {
             get; set;
-        } 
+        }
 
         public string? ClosingHymn
         {
             get; set;
-        } 
+        }
 
         public string? Benediction
         {
@@ -60,6 +62,9 @@ namespace Sacrament_Meeting_Planner.Models
             get; set;
         }
 
+        [NotMapped]
+        [BindNever]
+        public string? NewSpeaker {get;set;}
         // Navigation property for Speakers
         public List<Speaker> Speakers { get; set; } = new List<Speaker>();
     }

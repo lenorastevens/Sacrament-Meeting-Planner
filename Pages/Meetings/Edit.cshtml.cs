@@ -57,33 +57,73 @@ namespace Sacrament_Meeting_Planner.Pages.Meetings
                 return Page();
             }
 
-            _context.Attach(Meeting).State = EntityState.Modified;
+            // Find the meeting by its ID
+            var meetingToUpdate = Meeting;
+            if (meetingToUpdate == null)
+            {
+                return NotFound();
+            }
 
-            await _context.SaveChangesAsync();
+            // Update the meeting properties
+            if (await TryUpdateModelAsync<Meeting>(
+                meetingToUpdate,
 
-            return RedirectToPage("./Index");
+                "",
+                m => m.Date, m => m.Presiding, m => m.Conducting,
+                m => m.OpeningHymn, m => m.Invocation, m => m.SacramentHymn,
+                m => m.IntermediateHymn, m => m.ClosingHymn, m => m.Benediction,
+                m => m.SpeakerSubject))
+            {
+                // If NewSpeaker is not empty, add the new speaker to the meeting
+                //var newSpeakerNames = Meeting.NewSpeakerNames?.Split(',');
+                var speakersList = new List<Speaker>();
+         
+                if (NewSpeaker != null && NewSpeaker.Length > 0)
+                {
+                    // Add each new speaker to the Speakers table
+                    var speakerName = NewSpeaker.Trim();
+                   
+                    
+                    speakersList.Add(new Speaker { Name = speakerName, MeetingId =Meeting.Id });
+                    
+                }
+                try
+                {
+                    _context.Speakers.AddRange(speakersList);
+                    await _context.SaveChangesAsync();
+                    return RedirectToPage("./Index");
+                }
+                catch (DbUpdateException)
+                {
+                    // Log the error or handle as needed
+                    ModelState.AddModelError("", "Unable to save changes. Please try again.");
+                    return Page();
+                }
+            }
+
+            return Page(); // Return the current page if model binding fails
         }
 
-        public async Task<IActionResult> OnPostAddSpeakerAsync()
+        /*
+        public async Task<IActionResult> OnPostAddSpeakerAsync(string newSpeaker)
         {
             if (Meeting.Speakers == null)
             {
                 Meeting.Speakers = new List<Speaker>();
             }
 
-            var newSpeaker = new Speaker
-            {
-                Name = NewSpeaker
-            };
 
-            Meeting.Speakers.Add(newSpeaker);
-            NewSpeaker = "";
+
+
+
+            var speaker = new Speaker { Name = newSpeaker }; // Create a new Speaker object from the newSpeaker string
+            Meeting.Speakers.Add(speaker);
 
             await _context.SaveChangesAsync();
 
             return RedirectToPage();
         }
-
+        */
         public async Task<IActionResult> OnPostRemoveSpeakerAsync(int id)
         {
             var speakerToRemove = await _context.Speakers.FindAsync(id);

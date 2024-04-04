@@ -73,7 +73,7 @@
                         <button type="button" id="cancelAddSpeakerBtn" class="btn btn-secondary mt-2">Cancel</button>
                     </div>
                 </div>
-                <button type="submit" id="addSpeakerSubmitBtn" style="display: none;">Add</button>
+                
             </div>
 
             <div class="form-group">
@@ -119,5 +119,27 @@
                 addSpeakerSubmitBtn.style.display = "none";
             });
         });
+
+
+        document.getElementById("addSpeakerSubmitBtn").addEventListener("click", function () {
+            var newSpeaker = document.getElementById("newSpeaker").value;
+
+            // Make a POST request to call the C# method
+            fetch("/Meetings/Edit?handler=OnPostAddSpeakerAsync", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    newSpeaker: newSpeaker
+                })
+            }).then(response => {
+                if (response.ok) {
+                    // Reload the page after adding the speaker
+                    window.location.reload();
+                }
+            });
+        });
+
     </script>
 }
