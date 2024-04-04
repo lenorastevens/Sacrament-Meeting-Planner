@@ -15,13 +15,16 @@
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Meetings[0].Date)
-            </th>            
-            <th>
-                @Html.DisplayNameFor(model => model.Meetings[0].OpeningHymn)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Meetings[0].Invocation)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Meetings[0].Benediction)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Meetings[0].OpeningHymn)
+            </th>           
             <th>
                 @Html.DisplayNameFor(model => model.Meetings[0].SacramentHymn)
             </th>
@@ -30,10 +33,7 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Meetings[0].ClosingHymn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Meetings[0].Benediction)
-            </th>
+            </th>            
             <th>
                 @Html.DisplayNameFor(model => model.Meetings[0].SpeakerSubject)
             </th>
@@ -49,12 +49,15 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Date)
-            </td>           
-            <td>
-                @Html.DisplayFor(modelItem => item.OpeningHymn)
-            </td>
+            </td>            
             <td>
                 @Html.DisplayFor(modelItem => item.Invocation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Benediction)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OpeningHymn)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.SacramentHymn)
@@ -64,10 +67,7 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ClosingHymn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Benediction)
-            </td>
+            </td>           
             <td>
                 @Html.DisplayFor(modelItem => item.SpeakerSubject)
             </td>
