@@ -15,76 +15,76 @@
         <h5>@Html.DisplayFor(model => model.Meeting.Date)</h5>
     </div>
     <dl id="details-div" class="row">        
-        <dt class="col-sm-2">
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.Meeting.Presiding)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.Meeting.Presiding)
         </dd>
-        <dt class="col-sm-2">
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.Meeting.Conducting)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.Meeting.Conducting)
         </dd>
-        <dt class="col-sm-2">
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.Meeting.OpeningHymn)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.Meeting.OpeningHymn)
         </dd>
-        <dt class="col-sm-2">
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.Meeting.Invocation)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.Meeting.Invocation)
         </dd>
-        <dt class="col-sm-2">
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.Meeting.SacramentHymn)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.Meeting.SacramentHymn)
         </dd>
         @if (Model.Meeting.Speakers.Count > 0)
         {
             @if (Model.Meeting.Speakers.Count == 2)
             {
-                <dt class="col-sm-2">Speaker</dt>
-                <dd class="col-sm-10">
+                <dt class="col-sm-3">Speaker</dt>
+                <dd class="col-sm-9">
                     <div>@Model.Meeting.Speakers[0].Name</div>
                 </dd>
-                <dt class="col-sm-2">
+                <dt class="col-sm-3">
                     @Html.DisplayNameFor(model => model.Meeting.IntermediateHymn)
                 </dt>
-                <dd class="col-sm-10">
+                <dd class="col-sm-9">
                     @Html.DisplayFor(model => model.Meeting.IntermediateHymn)
                 </dd>
-                <dt class="col-sm-2">Speaker</dt>
-                <dd class="col-sm-10">
+                <dt class="col-sm-3">Speaker</dt>
+                <dd class="col-sm-9">
                     <div>@Model.Meeting.Speakers[1].Name</div>
                 </dd>
 
             }
             else if (Model.Meeting.Speakers.Count >= 2)
             {
-                <dt class="col-sm-2">Speaker</dt>
-                <dd class="col-sm-10">
+                <dt class="col-sm-3">Speaker</dt>
+                <dd class="col-sm-9">
                     <div>@Model.Meeting.Speakers[0].Name</div>
                 </dd>
-                <dt class="col-sm-2">Speaker</dt>
-                <dd class="col-sm-10">
+                <dt class="col-sm-3">Speaker</dt>
+                <dd class="col-sm-9">
                     <div>@Model.Meeting.Speakers[1].Name</div>
                 </dd>
-                <dt class="col-sm-2">
+                <dt class="col-sm-3">
                     @Html.DisplayNameFor(model => model.Meeting.IntermediateHymn)
                 </dt>
-                <dd class="col-sm-10">
+                <dd class="col-sm-9">
                     @Html.DisplayFor(model => model.Meeting.IntermediateHymn)
                 </dd>
                 @for (var i = 2; i<Model.Meeting.Speakers.Count; i++)
                 {
-                    <dt class="col-sm-2">Speaker</dt>
-                    <dd class="col-sm-10">
+                    <dt class="col-sm-3">Speaker</dt>
+                    <dd class="col-sm-9">
                         <div>@Model.Meeting.Speakers[i].Name</div>
                     </dd>
                 }
@@ -92,16 +92,16 @@
            
         }
         
-        <dt class="col-sm-2">
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.Meeting.ClosingHymn)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.Meeting.ClosingHymn)
         </dd>
-        <dt class="col-sm-2">
+        <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.Meeting.Benediction)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-9">
             @Html.DisplayFor(model => model.Meeting.Benediction)
         </dd>        
     </dl>
