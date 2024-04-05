@@ -20,3 +20,19 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+#details-div, #delete-div {
+    margin: 2% 18% 2% 18%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    line-height: 2.5;
+}
+
+.col-sm-10 {
+    text-align: right;
+}
+
+#program-title {
+    margin: auto;
+    text-align: center;
+}
