@@ -65,8 +65,8 @@
             </div>
 
             <div class="form-group">
-                <label for="Meetings.Speakers">Speakers:</label>
-                <input type="text" id="speakers" name="speakers" class="form-control" placeholder="Enter speaker names separated by commas" />
+                <label for="Meetings.Speakers" required>Speakers</label>
+                <input required type="text" pattern="[A-Za-z, ]{1,}" id="speakers" name="speakers" class="form-control" placeholder="Enter speaker names separated by commas" />
             </div>
 
             <div class="form-group">
