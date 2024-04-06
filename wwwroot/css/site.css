@@ -1,3 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif&family=Poppins:wght@300&display=swap');
+
+:root {
+    --mainDarkest: rgb(0, 97, 132);
+    --mainDark: #4A7DA5;
+    --medDark: #5691B4;
+    --mainLight: #A6CAD8;
+    --lightestGray: #FBFBFB;
+    --bs-body-font-family: "Poppings", sans-serif;
+    --bs-font-sans-serif: "Poppings", sans-serif;
+    --font-serif: "Noto Serif", serif;
+    --box-shadow: rgba(74, 74, 74, 0.2) 0px 2px 4px;
+    --border: 1px solid rgb(239, 240, 240);
+}
+
 html {
   font-size: 14px;
 }
@@ -12,13 +27,97 @@ html {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
+.btn, input.btn {
+    color: white;
+    background-color: var(--mainDark) !important;
+    border: none !important;
+}
+
+.btn:hover {
+    background-color: var(--mainDarkest);
+}
+
+a {
+    color: var(--mainDark);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--mainDarkest);
+}
+
+nav.navbar {
+    background-color: var(--mainDark);
+}
+
+nav.navbar ul li a {
+    color: white !important;
+}
+
+a.navbar-brand {
+    color: white;
+}
+
+.logo-img {
+    height: 50px;
+    border-radius: 10px;
+}
+
+h1 {
+    font-family: var(--font-serif), serif;
+}
+
+/* Table */
+table.table {
+    border: var(--border);
+    box-shadow: var(--box-shadow);
+    background-color: var(--lightestGray);
+}
+table.table th {
+    background-color: var(--medDark);
+    color: white;
+    font-family: var(--font-serif);
+}
+
+table.table tr:not(first-of-type) {
+    border-top: 1.5px solid var(--mainLight);
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.speaker-edit {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+/* End Table */
+.main-img {
+    max-height: 75vh;
+}
+input {
+    background-color: var(--lightestGray) !important;
+    box-shadow: var(--box-shadow);
+    margin-bottom: 8px;
+}
+
+label {
+    font-size: 13px;
+    font-weight: bold;
+}
+
 html {
   position: relative;
   min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
 }
 
 #details-div, #delete-div {
