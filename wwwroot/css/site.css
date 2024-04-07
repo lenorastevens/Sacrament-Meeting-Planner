@@ -63,7 +63,7 @@ a.navbar-brand {
     border-radius: 10px;
 }
 
-h1 {
+h1, .serif {
     font-family: var(--font-serif), serif;
 }
 
@@ -103,7 +103,7 @@ table.table tr:not(first-of-type) {
 input {
     background-color: var(--lightestGray) !important;
     box-shadow: var(--box-shadow);
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 label {
@@ -134,4 +134,14 @@ body {
 #program-title {
     margin: auto;
     text-align: center;
+}
+
+.form-group > div {
+    margin-top: 3px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.col-md-5 {
+    margin: 0 auto;
 }
