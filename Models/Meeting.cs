@@ -33,10 +33,11 @@ namespace Sacrament_Meeting_Planner.Models
         {
             get; set;
         }
-
+        /*
         [Required]
         [Display(Name = "Opening Hymn")]
         [RegularExpression(@"#[0-9]{1,3}\s[A-Za-z ]+", ErrorMessage = "Number Sign, then 1-3 digits, then space, then hymn title")]
+        */
         public string? OpeningHymn
         {
             get; set;
@@ -48,17 +49,19 @@ namespace Sacrament_Meeting_Planner.Models
         {
             get; set;
         }
-
+        /*
         [Required]
         [Display(Name = "Sacrament Hymn")]
         [RegularExpression(@"#[0-9]{1,3}\s[A-Za-z ]+", ErrorMessage = "Number Sign, then 1-3 digits, then space, then hymn title")]
+        */
         public string? SacramentHymn
         {
             get; set;
         }
 
         [Display(Name = "Intermediate Hymn")]
-        [RegularExpression(@"#[0-9]{1,3}\s[A-Za-z ]+", ErrorMessage = "Number Sign, then 1-3 digits, then space, then hymn title")]
+        /*
+        [RegularExpression(@"#[0-9]{1,3}\s[A-Za-z ]+", ErrorMessage = "Number Sign, then 1-3 digits, then space, then hymn title")] */
         public string? IntermediateHymn
         {
             get; set;
