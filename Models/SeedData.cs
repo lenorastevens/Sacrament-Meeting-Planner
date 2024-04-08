@@ -64,7 +64,7 @@ namespace Sacrament_Meeting_Planner.Data
                         OpeningHymn = "#193 I Stand All Amazed",
                         Invocation = "Laurie McGrath",
                         SacramentHymn = "#192 Hed Died! The Great Redeemer Died",
-                        IntermediateHymn = "Musical Number - I Stand All Amazed",
+                        IntermediateHymn = "#193 I Stand All Amazed",
                         ClosingHymn = "#199 He Is Risen",
                         Benediction = "Aly Smith",
                         SpeakerSubject = "Easter",
