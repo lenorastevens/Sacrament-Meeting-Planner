@@ -46,6 +46,9 @@
         <dd class="col-sm-9">
             @Html.DisplayFor(model => model.Meeting.SacramentHymn)
         </dd>
+        <dt class="col-sm-12 text-center">
+            <p>ADMINISTRATION OF THE SACRAMENT</p>
+        </dt>
         @if (Model.Meeting.Speakers.Count > 0)
         {
             @if (Model.Meeting.Speakers.Count == 2)
