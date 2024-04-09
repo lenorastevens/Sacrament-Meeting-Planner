@@ -136,10 +136,18 @@ body {
     text-align: center;
 }
 
-.form-group > div {
+.form-group form > div {
     margin-top: 3px;
     display: flex;
     justify-content: space-between;
+}
+
+.form-group form > div .btn {
+    margin-top: 0;
+}
+
+.form-group .btn {
+    margin-top: 5px;
 }
 
 .col-md-5 {

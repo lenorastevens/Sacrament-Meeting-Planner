@@ -26,7 +26,7 @@ namespace Sacrament_Meeting_Planner.Pages.Meetings
         }
 
         [BindProperty]
-        public string NewSpeaker
+        public string? NewSpeaker
         {
             get; set;
         }
@@ -57,7 +57,7 @@ namespace Sacrament_Meeting_Planner.Pages.Meetings
                 return NotFound();
             }
 
-            var meetingToUpdate = await _context.Meetings
+            var meetingToUpdate = await _context.Meetings.Include(m => m.Speakers)
                 .FirstOrDefaultAsync(s => s.Id == MeetingId);
 
             if (meetingToUpdate == null)
@@ -77,32 +77,35 @@ namespace Sacrament_Meeting_Planner.Pages.Meetings
                 {
                     return Page();
                 }
-
                 try
                 {
-                    // Save changes to the meeting first
-                    await _context.SaveChangesAsync();
-
-                    // Now create and save speakers if needed
                     if (!string.IsNullOrEmpty(NewSpeaker))
                     {
                         var speakerName = NewSpeaker.Trim();
                         var speaker = new Speaker { Name = speakerName, MeetingId = MeetingId };
-                        _context.Speakers.Add(speaker);
-                        await _context.SaveChangesAsync();
+                        meetingToUpdate.Speakers.Add(speaker);
                     }
-
-                    return RedirectToAction(nameof(Index));
+                    await _context.SaveChangesAsync();
                 }
-                catch (DbUpdateException)
+                catch (DbUpdateException /* ex */)
                 {
-                    ModelState.AddModelError("", "Unable to save changes. Please try again.");
-                    return Page();
+                    // Log the error (uncomment ex variable name and write a log.)
+                    ModelState.AddModelError("", "Unable to save changes. " +
+                        "Try again, and if the problem persists, " +
+                        "see your system administrator.");
                 }
             }
-
-            return Page(); // Return the current page if model binding fails
+            else
+            {
+                var errors = ModelState
+                    .Where(x => x.Value.Errors.Count > 0)
+                    .Select(x => new { x.Key, x.Value.Errors })
+                    .ToArray();
+            }
+            return RedirectToAction(nameof(Index));
         }
+
+
 
 
         /*
