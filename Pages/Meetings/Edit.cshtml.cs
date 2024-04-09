@@ -102,7 +102,7 @@ namespace Sacrament_Meeting_Planner.Pages.Meetings
                     .Select(x => new { x.Key, x.Value.Errors })
                     .ToArray();
             }
-            return RedirectToAction(nameof(Index));
+            return RedirectToPage("./Index");
         }
 
 
